@@ -1,17 +1,55 @@
 import { Text, View, Pressable, StyleSheet } from "react-native";
+import { useState } from "react";
 import "../global.css";
 
 export default function Index() {
+  const [isDropdownOpen, setIsDropdownOpen] = useState(false);
+  const [selectedOption, setSelectedOption] = useState("Select an option");
+
   const handlePress = () => {
     console.log("Button pressed!");
   };
+
+  const toggleDropdown = () => {
+    setIsDropdownOpen(!isDropdownOpen);
+  };
+
+  const selectOption = (option: string) => {
+    setSelectedOption(option);
+    setIsDropdownOpen(false);
+  };
+
+  const dropdownOptions = ["Option 1", "Option 2", "Option 3", "Option 4"];
 
   return (
     <View style={styles.container}>
       <View style={styles.panel}>
         <Text style={styles.panelTitle}>Matas Strimaitis</Text>
         <Text style={styles.panelSubtitle}>Student</Text>
+        <Text style={styles.panelSubtitle}>First React Native project</Text>
       </View>
+
+      <View style={styles.dropdownContainer}>
+        <Pressable style={styles.dropdownButton} onPress={toggleDropdown}>
+          <Text style={styles.dropdownButtonText}>{selectedOption}</Text>
+          <Text style={styles.arrow}>{isDropdownOpen ? "▲" : "▼"}</Text>
+        </Pressable>
+
+        {isDropdownOpen && (
+          <View style={styles.dropdownMenu}>
+            {dropdownOptions.map((option, index) => (
+              <Pressable
+                key={index}
+                style={styles.dropdownItem}
+                onPress={() => selectOption(option)}
+              >
+                <Text style={styles.dropdownItemText}>{option}</Text>
+              </Pressable>
+            ))}
+          </View>
+        )}
+      </View>
+
       <Text style={styles.text}>Edit app/index.tsx to edit this screen.</Text>
       <Pressable style={styles.button} onPress={handlePress}>
         <Text style={styles.buttonText}>Press Me</Text>
@@ -80,6 +118,53 @@ const styles = StyleSheet.create({
     color: "white",
     fontWeight: "500",
     textAlign: "center",
+  },
+  dropdownContainer: {
+    width: 320,
+    marginBottom: 24,
+  },
+  dropdownButton: {
+    backgroundColor: "#ffffff",
+    borderWidth: 1,
+    borderColor: "#D1D5DB",
+    borderRadius: 8,
+    padding: 16,
+    flexDirection: "row",
+    justifyContent: "space-between",
+    alignItems: "center",
+  },
+  dropdownButtonText: {
+    fontSize: 16,
+    color: "#374151",
+  },
+  arrow: {
+    fontSize: 16,
+    color: "#6B7280",
+  },
+  dropdownMenu: {
+    backgroundColor: "#ffffff",
+    borderWidth: 1,
+    borderColor: "#D1D5DB",
+    borderTopWidth: 0,
+    borderBottomLeftRadius: 8,
+    borderBottomRightRadius: 8,
+    shadowColor: "#000",
+    shadowOffset: {
+      width: 0,
+      height: 2,
+    },
+    shadowOpacity: 0.1,
+    shadowRadius: 8,
+    elevation: 5,
+  },
+  dropdownItem: {
+    padding: 16,
+    borderBottomWidth: 1,
+    borderBottomColor: "#F3F4F6",
+  },
+  dropdownItemText: {
+    fontSize: 16,
+    color: "#374151",
   },
   tailwindPanel: {
     backgroundColor: "#64748b", // bg-slate-500
