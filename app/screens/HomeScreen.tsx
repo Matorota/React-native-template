@@ -1,4 +1,5 @@
 import { View, Text, StyleSheet } from "react-native";
+import { router } from "expo-router";
 import UserPanel from "../components/UserPanel";
 import Dropdown from "../components/Dropdown";
 import CustomButton from "../components/CustomButton";
@@ -14,6 +15,10 @@ export default function HomeScreen() {
     console.log("Selected:", value);
   };
 
+  const navigateToForm = () => {
+    router.push("./form");
+  };
+
   return (
     <View style={styles.container}>
       <UserPanel
@@ -26,7 +31,14 @@ export default function HomeScreen() {
 
       <Text style={styles.text}>Edit app/index.tsx to edit this screen.</Text>
 
-      <CustomButton title="Press Me" onPress={handleButtonPress} />
+      <View style={styles.buttonContainer}>
+        <CustomButton title="Press Me" onPress={handleButtonPress} />
+        <CustomButton
+          title="Go to Form"
+          onPress={navigateToForm}
+          style={styles.formButton}
+        />
+      </View>
     </View>
   );
 }
@@ -42,5 +54,13 @@ const styles = StyleSheet.create({
   text: {
     marginBottom: 16,
     color: "#374151",
+  },
+  buttonContainer: {
+    flexDirection: "row",
+    gap: 12,
+    marginTop: 8,
+  },
+  formButton: {
+    backgroundColor: "#10B981",
   },
 });
