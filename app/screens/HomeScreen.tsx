@@ -3,10 +3,9 @@ import { router } from "expo-router";
 import UserPanel from "../components/UserPanel";
 import Dropdown from "../components/Dropdown";
 import CustomButton from "../components/CustomButton";
+import { dropdownOptions } from "../constants";
 
 export default function HomeScreen() {
-  const dropdownOptions = ["Option 1", "Option 2", "Option 3", "Option 4"];
-
   const handleButtonPress = () => {
     console.log("Button pressed!");
   };
